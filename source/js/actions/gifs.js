@@ -4,6 +4,7 @@ export const GET_DISCOVER_SUCCESS = 'GET_DISCOVER_SUCCESS';
 export const GET_FAVORITES = 'GET_FAVORITES';
 
 export const DISMISS_GIF = 'DISMISS_GIF';
+export const DISMISS_FAVORITE = 'DISMISS_FAVORITE';
 export const FAVORITE_GIF = 'FAVORITE_GIF';
 
 export function getDiscover() {
@@ -15,6 +16,13 @@ export function getDiscover() {
 export function dismissGif(gif) {
   return {
     type: DISMISS_GIF,
+    gif,
+  };
+}
+
+export function dismissFavorite(gif) {
+  return {
+    type: DISMISS_FAVORITE,
     gif,
   };
 }

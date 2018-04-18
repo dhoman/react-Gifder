@@ -91,20 +91,6 @@ button:hover {
   display: block;
 }
 
-.Menu-logo {
-  margin-right: 2rem;
-  width: 6rem;
-
-  @media (--lg) {
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    border-right: 1px solid var(--grey-border);
-    width: 20rem;
-    padding: 4rem;
-  }
-}
 
 .Menu-link {
   display: inline-block;
@@ -181,4 +167,10 @@ hr {
     flex-basis: 50%;
     flex-shrink: 0;
   }
+}
+.icon{
+  height: '50px';
+  width: '50px';
+  margin-left: '40px';
+  margin-right: '40px';
 }

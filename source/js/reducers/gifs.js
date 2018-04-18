@@ -4,13 +4,15 @@ import {
   GET_DISCOVER_START,
   GET_DISCOVER_ERROR,
   GET_DISCOVER_SUCCESS,
+  DISMISS_FAVORITE,
 } from 'actions/gifs';
+import { DISMISS_GIF, FAVORITE_GIF } from '../actions/gifs';
 
 const initialState = Map({
   loading: false,
   error: null,
   gifs: null,
-  favorites: null,
+  favorites: [],
   pagination: null,
 });
 
@@ -34,6 +36,33 @@ const actionsMap = {
       loading: false,
       gifs: action.data.data,
       pagination: action.data.pagination,
+    }));
+  },
+  [DISMISS_GIF]: (state, action) => {
+    const gifsTemp = state.get('gifs').slice();
+    if (gifsTemp.indexOf(action.gif) >= 0) {
+      gifsTemp.splice(gifsTemp.indexOf(action.gif), 1);
+    }
+    return state.merge(Map({
+      gifs: gifsTemp,
+    }));
+  },
+  [DISMISS_FAVORITE]: (state, action) => {
+    const favoritesTemp = state.get('favorites').slice();
+    if (favoritesTemp.indexOf(action.gif) >= 0) {
+      favoritesTemp.splice(favoritesTemp.indexOf(action.gif), 1);
+    }
+    return state.merge(Map({
+      favorites: favoritesTemp,
+    }));
+  },
+  [FAVORITE_GIF]: (state, action) => {
+    const favorites = [...state.get('favorites'), action.gif];
+    const gifsTemp = state.get('gifs').slice();
+    gifsTemp.splice(gifsTemp.indexOf(action.gif), 1);
+    return state.merge(Map({
+      gifs: gifsTemp,
+      favorites,
     }));
   },
 };

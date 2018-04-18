@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { increment } from 'actions/app';
+import { dismissFavorite } from 'actions/gifs';
 import XSvg from 'svg/x.svg';
 
 @connect(state => ({
-  favorites: state.app.get('favorites'),
+  favorites: state.gifs.get('favorites'),
 }))
 export default class Favorites extends Component {
   static propTypes = {
@@ -14,37 +14,46 @@ export default class Favorites extends Component {
     dispatch: PropTypes.func,
   }
 
-  handleTestButtonClick = () => {
+  dismissFavoriteClick = (gif) => {
     const { dispatch } = this.props;
 
-    dispatch(increment());
+    dispatch(dismissFavorite(gif));
   }
 
-  arrayofGifs = () => {
+  iconStyle = {
+    'height': '50px',
+    'width': '50px',
+    'marginLeft': '40px',
+    'marginRight': '40px',
+  }
+
+  renderFavorites() {
     const {
       favorites,
     } = this.props;
 
-    return Object.keys(favorites)
-      .map(key => {
-        const gif = favorites[key];
-        return (
-          <div key={ key }>
-            <img alt={ gif.title } src={ gif.images.original.webp } />
-          </div>
-        );
-      });
+    return favorites.map(gif => {
+      return (
+        <div key={ gif.id }>
+          <img alt={ gif.title } src={ gif.images.original.webp } />
+          <XSvg style={ this.iconStyle } onClick={ () => { this.dismissFavoriteClick(gif); } } />
+        </div>
+      );
+    });
   }
 
   render() {
     const {
       favorites,
     } = this.props;
-
+    let favoriteSection = <div>You have no favorites =[ Go find some maybe?</div>;
+    if (favorites && favorites.length > 0) {
+      favoriteSection = this.renderFavorites();
+    }
     return (
       <div className='Home'>
-        <div className='Example'>
-          { favorites && this.arrayOfGifs()}
+        <div className='Example' style={ { 'display': 'flex', 'flexDirection': 'column' } }>
+          { favoriteSection }
         </div>
       </div>
     );

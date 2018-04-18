@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getDiscover } from 'actions/gifs';
+import { getDiscover, dismissGif, favoriteGif } from 'actions/gifs';
+import HeartSvg from 'svg/heart.svg';
+import XSvg from 'svg/x.svg';
 
 @connect(state => ({
   error: state.gifs.get('error'),
@@ -27,6 +29,33 @@ export default class Discover extends Component {
       dispatch(getDiscover());
     }
   }
+  iconStyle = {
+    'height': '50px',
+    'width': '50px',
+    'marginLeft': '40px',
+    'marginRight': '40px',
+  }
+  cardStyle = {
+    'border': 'solid',
+    'borderRadius': '10px',
+    'padding': '10px',
+    'margin': '10px',
+    'width': '400px',
+    'height': '600px',
+    'display': 'flex',
+    'justifyContent': 'space-between',
+    'flexDirection': 'column',
+  }
+
+  dismissGifClick = (gif) => {
+    const { dispatch } = this.props;
+    dispatch(dismissGif(gif));
+  }
+
+  favoriteGifClick = (gif) => {
+    const { dispatch } = this.props;
+    dispatch(favoriteGif(gif));
+  }
 
   renderGifs() {
     const {
@@ -35,9 +64,16 @@ export default class Discover extends Component {
 
     return gifs.map(gif => {
       return (
-        <div key={ gif.id } className='People-person'>
-          <h3>{ gif.title }</h3>
-          <img alt={ gif.title } src={ gif.images.original.webp } />
+        <div key={ gif.id } className='card' style={ this.cardStyle }>
+          <h3 >{ gif.title }</h3>
+          <img
+            alt={ gif.title }
+            src={ gif.images.original.webp }
+          />
+          <div>
+            <XSvg onClick={ () => { this.dismissGifClick(gif); } } style={ this.iconStyle } />
+            <HeartSvg onClick={ () => { this.favoriteGifClick(gif); } } style={ Object.assign({ 'float': 'right' }, this.iconStyle) } />
+          </div>
         </div>
       );
     });
@@ -52,10 +88,10 @@ export default class Discover extends Component {
 
     return (
       <div className='People'>
-        <h1>People</h1>
-        { loading && <div>Loading people...</div> }
+        <h1>Gifs</h1>
+        { loading && <div>Loading gifs...</div> }
         { error && error.toString() }
-        <div className='People-list'>
+        <div className='People-list' style={ { display: 'flex' } }>
           { gifs && this.renderGifs() }
         </div>
       </div>

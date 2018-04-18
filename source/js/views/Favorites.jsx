@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { increment } from 'actions/app';
-import CircleSvg from 'svg/circle.svg';
-import SquareSvg from 'svg/square.svg';
-import TriangleSvg from 'svg/triangle.svg';
-import bookImg from 'img/book2.jpg';
+import XSvg from 'svg/x.svg';
 
 @connect(state => ({
   favorites: state.app.get('favorites'),

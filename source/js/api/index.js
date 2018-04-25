@@ -7,6 +7,7 @@ const RANDOM_URL = '/v1/gifs/random';
 // this is a bad practice and should be set in a env variable but it's a demo app ¯\_(ツ)_/¯
 const API_KEY = 'dc6zaTOxFJmzC';
 
+
 // Custom API error to throw
 function ApiError(message, data, status) {
   let response = null;
@@ -71,11 +72,16 @@ function getTrending(params) {
   return fetchResource(TRENDING_URL, params);
 }
 
+function resetTrending() {
+  return fetchResource(TRENDING_URL);
+}
+
 function getRandom(params) {
   return fetchResource(RANDOM_URL, params);
 }
 
 export default {
   getTrending,
+  resetTrending,
   getRandom,
 };

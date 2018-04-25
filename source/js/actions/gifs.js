@@ -7,9 +7,10 @@ export const DISMISS_GIF = 'DISMISS_GIF';
 export const DISMISS_FAVORITE = 'DISMISS_FAVORITE';
 export const FAVORITE_GIF = 'FAVORITE_GIF';
 
-export function getDiscover() {
+export function getDiscover(pagination) {
   return {
     type: GET_DISCOVER_START,
+    pagination,
   };
 }
 

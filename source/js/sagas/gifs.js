@@ -7,10 +7,14 @@ import {
 } from 'actions/gifs';
 import api from 'api';
 
+export const getDiscoverPagination = (state) => state.gifs.get('pagination');
+
 function getTrending(isServer = false) {
   return function* (options) { // eslint-disable-line consistent-return
     try {
-      const data = yield call(() => api.getTrending());
+      const params = {};
+      if (options.pagination) Object.assign(params, options.pagination);
+      const data = yield call(() => api.getTrending(params));
       const action = { type: GET_DISCOVER_SUCCESS, data };
 
       if (isServer) {
@@ -31,7 +35,6 @@ function getTrending(isServer = false) {
 }
 
 export const getGifs = getTrending();
-export const getGifsServer = getTrending(true);
 
 
 export function* getGifsWatcher() {

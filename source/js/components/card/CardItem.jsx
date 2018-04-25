@@ -40,6 +40,7 @@ export default class CardItem extends Component {
         <h3 >{ gif.title }</h3>
         <img
           alt={ gif.title }
+          draggable={ false }
           src={ gif.images.original.webp }
         />
         <div>

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import MotionStack from 'react-motion-stack';
 import { getDiscover, dismissGif, favoriteGif } from 'actions/gifs';
 import Cards, {Card, CardItem} from 'components/card';
-import HeartSvg from 'svg/heart.svg';
-import XSvg from 'svg/x.svg';
+// import 'react-motion-stack/build/motion-stack.css';
 
 @connect(state => ({
   error: state.gifs.get('error'),
   loading: state.gifs.get('loading'),
   gifs: state.gifs.get('gifs'),
+  pagination: state.gifs.get('pagination'),
 }))
 export default class Discover extends Component {
   static propTypes = {
     error: PropTypes.string,
     loading: PropTypes.bool,
     gifs: PropTypes.arrayOf(PropTypes.object),
-    // from react-redux connect
+    pagination: PropTypes.object,
     dispatch: PropTypes.func,
   }
 
@@ -30,6 +31,45 @@ export default class Discover extends Component {
       dispatch(getDiscover());
     }
   }
+
+
+  swiped = (event) => {
+    const { gifs } = this.props;
+    const gif = gifs.find(x => x.id === event.pressedId);
+    if (event.direction === 'right') {
+      this.favoriteGifClick(gif);
+    } else {
+      this.dismissGifClick(gif);
+    }
+  }
+
+  dismissGifClick = (gif) => {
+    const { dispatch } = this.props;
+    dispatch(dismissGif(gif));
+    this.checkForMoreGifs();
+  }
+
+  favoriteGifClick = (gif) => {
+    const { dispatch } = this.props;
+    dispatch(favoriteGif(gif));
+    this.checkForMoreGifs();
+  }
+
+  checkForMoreGifs = () => {
+    const {
+      dispatch,
+      gifs,
+      pagination,
+    } = this.props;
+    const nextPage = {
+      count: pagination.count,
+      offset: pagination.offset + pagination.count,
+    };
+    if (gifs.length <= 1) {
+      dispatch(getDiscover(nextPage));
+    }
+  }
+
   iconStyle = {
     'height': '50px',
     'width': '50px',
@@ -47,52 +87,37 @@ export default class Discover extends Component {
     'justifyContent': 'space-between',
     'flexDirection': 'column',
   }
-
-  dismissGifClick = (gif) => {
-    const { dispatch } = this.props;
-    dispatch(dismissGif(gif));
+  cardStackStyle = {
+    'display': 'grid',
+    'grid-template-columns': '240px',
+    'grid-template-rows': '360px',
+    'align-items': 'center',
+    'justify-content': 'center',
   }
 
-  favoriteGifClick = (gif) => {
-    const { dispatch } = this.props;
-    dispatch(favoriteGif(gif));
-  }
-
-  getMoreGifs = () => {
-    console.log('called');
+  cardItemStyle = {
+    'grid-column': '1/2',
+    'grid-row': '1/2',
+    'will-change': 'transform',
   }
 
   renderGifs() {
     const {
       gifs,
     } = this.props;
-    return (<Cards onEnd={() => {this.getMoreGifs()}}  >
-    {gifs.map(gif => {
-      return (
-        <Card key={gif.id} onSwipeLeft={this.dismissGifClick.bind(this)} onSwipeRight={this.favoriteGifClick.bind(this)} >
-          <CardItem key={gif.id} gif={ gif } dismiss={this.dismissGifClick.bind(this)} favorite={this.favoriteGifClick.bind(this)} />
-        </Card>
-      );
-    })}
-    </Cards>);
+    return (<MotionStack
+      style={ this.cardStackStyle }
+      data={ gifs }
+      onSwipeEnd={ this.swiped }
+      render={ (props) => {
+        return (
+          <CardItem style={ this.cardItemStyle } key={ props.id } gif={ props } dismiss={ this.dismissGifClick } favorite={ this.favoriteGifClick } />
+        );
+      }
+      }
+    />);
   }
-/*
-        <Card key={gif.id} onSwipeLeft={ () => {this.dismissGifClick(gif)} } onSwipeRight={ () =>  {this.favoriteGifClick(gif)}} >
-          <CardItem key={gif.id} gif={ gif } dismiss={this.dismissGifClick.bind(this)} favorite={this.favoriteGifClick.bind(this)} />
-        </Card>
 
-    <Cards onEnd={() => {this.getMoreGifs()}}  >
-    {gifs.map(gif => {
-      return (
-        <Card key={gif.id} onSwipeLeft={this.dismissGifClick.bind(this)} onSwipeRight={this.favoriteGifClick.bind(this)} >
-          <CardItem key={gif.id} gif={ gif } dismiss={this.dismissGifClick.bind(this)} favorite={this.favoriteGifClick.bind(this)} />
-        </Card>
-      );
-    })}
-    </Cards>
-
-
-*/
   render() {
     const {
       loading,
@@ -112,11 +137,3 @@ export default class Discover extends Component {
     );
   }
 }
-/*
-          { gifs ?
-              <Cards onEnd={() => {this.getMoreGifs()}} > 
-                { this.renderGifs() }
-              </Cards> :
-              <div>Blah</div>
-          }
-*/

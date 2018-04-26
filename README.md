@@ -19,6 +19,10 @@ Visit `http://localhost:8080/` from your browser of choice.
 
 ## Project Structure
 
+Since I used a boilerplate I thought adding a brief description of the project structure would be useful
+
+Here are the files I think one would find to be of the most interest
+
 ```
 source/
   css/
@@ -32,7 +36,7 @@ source/
     components/ react components
       card/
         CardItem.jsx - main component for the cards used on the discovery page
-        MotionStack.js/css - component for handling swiping and accomping styling
+        MotionStack.js/css - component for handling swiping and accompanying styling
       global/
         Menu.jsx - Nav bar used at the top of the site
     reducers/

@@ -41,8 +41,8 @@ class MotionStack extends React.Component {
     onSwipeEnd: () => {},
   };
 
-  constructor({ data }, ...args) {
-    super(...args);
+  constructor({ data }) {
+    super(...arguments);
     this.state = {
       topDeltaX: 0,
       mouseX: 0,

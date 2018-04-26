@@ -68,42 +68,16 @@ export default class Discover extends Component {
     }
   }
 
-  iconStyle = {
-    'height': '50px',
-    'width': '50px',
-    'marginLeft': '40px',
-    'marginRight': '40px',
-  }
-  cardStyle = {
-    'border': 'solid',
-    'borderRadius': '10px',
-    'padding': '10px',
-    'margin': '10px',
-    'width': '400px',
-    'height': '600px',
-    'display': 'flex',
-    'justifyContent': 'space-between',
-    'flexDirection': 'column',
-  }
-
-  cardItemStyle = {
-    'grid-column': '1',
-    'grid-row': '1',
-    'will-change': 'transform',
-  }
-
   renderGifs() {
     const {
       gifs,
     } = this.props;
     return (<MotionStack
-      style={ this.cardStackStyle }
       data={ gifs }
       onSwipeEnd={ this.swiped }
       render={ (props) => {
           return (
             <CardItem
-              style={ this.cardItemStyle }
               key={ props.id }
               gif={ props }
               dismiss={ this.dismissGifClick }

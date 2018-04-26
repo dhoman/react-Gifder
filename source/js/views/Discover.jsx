@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MotionStack from 'react-motion-stack';
 import { getDiscover, dismissGif, favoriteGif } from 'actions/gifs';
-import Cards, {Card, CardItem} from 'components/card';
+import {CardItem, MotionStack} from 'components/card';
 // import 'react-motion-stack/build/motion-stack.css';
 
 @connect(state => ({
@@ -87,17 +86,10 @@ export default class Discover extends Component {
     'justifyContent': 'space-between',
     'flexDirection': 'column',
   }
-  cardStackStyle = {
-    'display': 'grid',
-    'grid-template-columns': '240px',
-    'grid-template-rows': '360px',
-    'align-items': 'center',
-    'justify-content': 'center',
-  }
 
   cardItemStyle = {
-    'grid-column': '1/2',
-    'grid-row': '1/2',
+    'grid-column': '1',
+    'grid-row': '1',
     'will-change': 'transform',
   }
 
@@ -110,10 +102,10 @@ export default class Discover extends Component {
       data={ gifs }
       onSwipeEnd={ this.swiped }
       render={ (props) => {
-        return (
-          <CardItem style={ this.cardItemStyle } key={ props.id } gif={ props } dismiss={ this.dismissGifClick } favorite={ this.favoriteGifClick } />
-        );
-      }
+          return (
+            <CardItem style={ this.cardItemStyle } key={ props.id } gif={ props } dismiss={ this.dismissGifClick } favorite={ this.favoriteGifClick } />
+          );
+        }
       }
     />);
   }

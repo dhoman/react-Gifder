@@ -1,11 +1,7 @@
-import Cards from './Cards';
-
-import Card from './CardSwitcher';
+import MotionStack from './MotionStack';
 import CardItem from './CardItem';
 
-export default Cards;
-
 export {
-  Card,
+  MotionStack,
   CardItem,
 };

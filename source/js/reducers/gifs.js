@@ -40,8 +40,9 @@ const actionsMap = {
   },
   [DISMISS_GIF]: (state, action) => {
     const gifsTemp = state.get('gifs').slice();
-    if (gifsTemp.indexOf(action.gif) >= 0) {
-      gifsTemp.splice(gifsTemp.indexOf(action.gif), 1);
+    const gifIndex = gifsTemp.findIndex((gif) => gif.id === action.gif.id);
+    if (gifIndex >= 0) {
+      gifsTemp.splice(gifIndex, 1);
     }
     return state.merge(Map({
       gifs: gifsTemp,
@@ -49,8 +50,9 @@ const actionsMap = {
   },
   [DISMISS_FAVORITE]: (state, action) => {
     const favoritesTemp = state.get('favorites').slice();
-    if (favoritesTemp.indexOf(action.gif) >= 0) {
-      favoritesTemp.splice(favoritesTemp.indexOf(action.gif), 1);
+    const gifIndex = favoritesTemp.findIndex((gif) => gif.id === action.gif.id);
+    if (gifIndex >= 0) {
+      favoritesTemp.splice(gifIndex, 1);
     }
     return state.merge(Map({
       favorites: favoritesTemp,
@@ -59,7 +61,8 @@ const actionsMap = {
   [FAVORITE_GIF]: (state, action) => {
     const favorites = [...state.get('favorites'), action.gif];
     const gifsTemp = state.get('gifs').slice();
-    gifsTemp.splice(gifsTemp.indexOf(action.gif), 1);
+    const gifIndex = gifsTemp.findIndex((gif) => gif.id === action.gif.id);
+    gifsTemp.splice(gifIndex, 1);
     return state.merge(Map({
       gifs: gifsTemp,
       favorites,

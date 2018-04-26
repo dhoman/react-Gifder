@@ -45,7 +45,10 @@ export default class CardItem extends Component {
         />
         <div>
           <XSvg onClick={ () => { dismiss(gif); } } style={ this.iconStyle } />
-          <HeartSvg onClick={ () => { favorite(gif); } } style={ Object.assign({ 'float': 'right' }, this.iconStyle) } />
+          <HeartSvg
+            onClick={ () => { favorite(gif); } }
+            style={ Object.assign({ 'float': 'right' }, this.iconStyle) }
+          />
         </div>
       </div>
     );

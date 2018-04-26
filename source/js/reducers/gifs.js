@@ -62,7 +62,7 @@ const actionsMap = {
     let favorites = [];
     // because we are using the trending api, the api sometimes will return the same gif in the next page of results
     // it's easier to check to see if that a gif is already favorited than worrying about duplicate keys / ids of favs
-    if(state.get('favorites').findIndex((gif) => gif.id === action.gif.id) >= 0){
+    if (state.get('favorites').findIndex((gif) => gif.id === action.gif.id) >= 0) {
       favorites = state.get('favorites').slice();
     } else {
       favorites = [...state.get('favorites'), action.gif];

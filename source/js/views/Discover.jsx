@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDiscover, dismissGif, favoriteGif } from 'actions/gifs';
-import {CardItem, MotionStack} from 'components/card';
+import { CardItem, MotionStack } from 'components/card';
 
 @connect(state => ({
   error: state.gifs.get('error'),
@@ -102,7 +102,13 @@ export default class Discover extends Component {
       onSwipeEnd={ this.swiped }
       render={ (props) => {
           return (
-            <CardItem style={ this.cardItemStyle } key={ props.id } gif={ props } dismiss={ this.dismissGifClick } favorite={ this.favoriteGifClick } />
+            <CardItem
+              style={ this.cardItemStyle }
+              key={ props.id }
+              gif={ props }
+              dismiss={ this.dismissGifClick }
+              favorite={ this.favoriteGifClick }
+            />
           );
         }
       }

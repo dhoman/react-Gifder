@@ -6,7 +6,7 @@ import './motionstack.css';
 /*
   most of this is from
   https://github.com/benadam11/react-motion-stack/
-  and the PR 
+  and the PR
   https://github.com/benadam11/react-motion-stack/pull/3/files
   which fixed an issue that I was running into when I would change the data prop passed in
 */
@@ -28,9 +28,9 @@ class MotionStack extends React.Component {
     renderButtons: PropTypes.func,
     data: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.any
+        id: PropTypes.any,
       })
-    ).isRequired
+    ).isRequired,
   };
 
   static defaultProps = {
@@ -38,11 +38,11 @@ class MotionStack extends React.Component {
     threshold: 200,
     renderCount: 3,
     infinite: true,
-    onSwipeEnd: () => {}
+    onSwipeEnd: () => {},
   };
 
-  constructor({ data }) {
-    super(...arguments);
+  constructor({ data }, ...args) {
+    super(...args);
     this.state = {
       topDeltaX: 0,
       mouseX: 0,
@@ -51,7 +51,7 @@ class MotionStack extends React.Component {
       swiped: false,
       swipedId: null,
       direction: null,
-      data
+      data,
     };
   }
 
@@ -62,7 +62,7 @@ class MotionStack extends React.Component {
     window.addEventListener('mouseup', this.handleMouseUp);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     window.removeEventListener('touchmove', this.handleTouchMove);
     window.removeEventListener('touchend', this.handleMouseUp);
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -72,7 +72,7 @@ class MotionStack extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.data.length !== nextProps.data.length) {
       this.setState({
-        data: nextProps.data
+        data: nextProps.data,
       });
     }
   }
@@ -83,7 +83,7 @@ class MotionStack extends React.Component {
         topDeltaX: pageX - pressX,
         mouseX: pressX,
         isPressed: !prevState.swiped,
-        pressedId: id
+        pressedId: id,
       }));
     }
   };
@@ -107,7 +107,7 @@ class MotionStack extends React.Component {
       this.setState({
         isPressed: false,
         topDeltaX: 0,
-        mouseX: 0
+        mouseX: 0,
       });
     }
   };
@@ -129,7 +129,7 @@ class MotionStack extends React.Component {
     this.setState({
       swiped: true,
       direction: x > 0 ? 'right' : 'left',
-      swipedId: id
+      swipedId: id,
     });
   };
 
@@ -146,7 +146,7 @@ class MotionStack extends React.Component {
       data: data.filter(item => item.id !== id),
       swipedId: null,
       mouseX: 0,
-      swiped: false
+      swiped: false,
     }));
 
     this.props.onSwipeEnd(this.state);
@@ -159,7 +159,7 @@ class MotionStack extends React.Component {
         data,
         swipedId: null,
         mouseX: 0,
-        swiped: false
+        swiped: false,
       };
     });
 
@@ -173,14 +173,14 @@ class MotionStack extends React.Component {
       direction,
       swiped,
       swipedId,
-      pressedId
+      pressedId,
     } = this.state;
 
     const { springConfig, threshold } = this.props;
 
     const isSecond = !isPressed
       ? i === 1 && swiped ? 1 : 0.5
-      : clamp(1 * Math.abs(mouseX) / threshold, 0.5, 1);
+      : clamp((1 * Math.abs(mouseX)) / threshold, 0.5, 1);
 
     const nextOpacity = i > 1 ? 0 : 1;
 
@@ -189,31 +189,31 @@ class MotionStack extends React.Component {
       shadow: spring(0, springConfig),
       rotate: spring(0, springConfig),
       opacity: spring(nextOpacity, springConfig),
-      x: spring(0, springConfig)
+      x: spring(0, springConfig),
     };
 
     const first = {
       ...next,
       scale: spring(1, springConfig),
-      opacity: spring(1, springConfig)
+      opacity: spring(1, springConfig),
     };
 
     const pan = {
       scale: spring(1.1, springConfig),
       shadow: spring(16, springConfig),
       opacity: spring(
-        clamp(1 / (Math.abs(mouseX) / 100) + 0.5, 0, 1),
+        clamp((1 / (Math.abs(mouseX) / 100)) + 0.5, 0, 1),
         springConfig
       ),
       rotate: clamp(mouseX / 15, -45, 45),
-      x: mouseX
+      x: mouseX,
     };
 
     const finish = {
       ...pan,
       rotate: spring(direction === 'left' ? -45 : 45, springConfig),
       opacity: spring(0, springConfig),
-      x: spring(direction === 'left' ? -360 : 360, springConfig)
+      x: spring(direction === 'left' ? -360 : 360, springConfig),
     };
 
     return swiped && swipedId === id
@@ -227,36 +227,36 @@ class MotionStack extends React.Component {
 
     return (
       <Fragment>
-        <div className='motion-card-stack' ref={el => (this.el = el)}>
+        <div className='motion-card-stack' ref={ el => (this.el = el) }>
           {data.map(
             ({ id, ...rest }, i) =>
               i < renderCount && (
                 <Motion
-                  key={id}
-                  style={this.getStyle(id, i)}
-                  onRest={() => {
+                  key={ id }
+                  style={ this.getStyle(id, i) }
+                  onRest={ () => {
                     const action = this.props.infinite
                       ? this.shuffle
                       : this.handleRemove;
 
                     swipedId === id && action(swipedId);
-                  }}
+                  } }
                 >
-                  {({ scale, shadow, x, rotate, opacity }) => {
+                  { ({ scale, shadow, x, rotate, opacity }) => {
                     return (
                       <div
                         className='motion-card-item'
-                        onMouseDown={this.handleMouseDown.bind(null, id, x)}
-                        onTouchStart={this.handleTouchStart.bind(null, id, x)}
-                        children={this.props.render({ id, ...rest })}
-                        style={{
+                        onMouseDown={ this.handleMouseDown.bind(null, id, x) }
+                        onTouchStart={ this.handleTouchStart.bind(null, id, x) }
+                        children={ this.props.render({ id, ...rest }) }
+                        style={ {
                           opacity,
-                          transform: `translate3d(${x}px, 0, 0) rotate(${rotate}deg)`,
-                          zIndex: data.length - i
-                        }}
+                          transform: `translate3d(${ x }px, 0, 0) rotate(${ rotate }deg)`,
+                          zIndex: data.length - i,
+                        } }
                       />
                     );
-                  }}
+                  } }
                 </Motion>
               )
           )}

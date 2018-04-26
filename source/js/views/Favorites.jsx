@@ -51,8 +51,8 @@ export default class Favorites extends Component {
       favoriteSection = this.renderFavorites();
     }
     return (
-      <div className='Home'>
-        <div className='Example' style={ { 'display': 'flex', 'flexDirection': 'column' } }>
+      <div>
+        <div className='favorites'>
           { favoriteSection }
         </div>
       </div>

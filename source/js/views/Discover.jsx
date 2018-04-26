@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDiscover, dismissGif, favoriteGif } from 'actions/gifs';
 import {CardItem, MotionStack} from 'components/card';
-// import 'react-motion-stack/build/motion-stack.css';
 
 @connect(state => ({
   error: state.gifs.get('error'),
@@ -118,11 +117,11 @@ export default class Discover extends Component {
     } = this.props;
 
     return (
-      <div className='People'>
+      <div>
         <h1>Gifs</h1>
         { loading && <div>Loading gifs...</div> }
         { error && error.toString() }
-        <div className='People-list' style={ { display: 'flex', height: 660, width: 440} }>
+        <div className='gif-list'>
           { gifs && this.renderGifs() }
         </div>
       </div>

@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import './motionstack.css';
 
+/*
+  most of this is from
+  https://github.com/benadam11/react-motion-stack/
+  and the PR 
+  https://github.com/benadam11/react-motion-stack/pull/3/files
+  which fixed an issue that I was running into when I would change the data prop passed in
+*/
+
 const Fragment = React.Fragment || 'div';
 
 const clamp = (n, min, max) => {
@@ -242,9 +250,7 @@ class MotionStack extends React.Component {
                         onTouchStart={this.handleTouchStart.bind(null, id, x)}
                         children={this.props.render({ id, ...rest })}
                         style={{
-                          // boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${shadow}px 0px`,
                           opacity,
-                          // transform: `translate3d(${x}px, 0, 0) scale(${scale}) rotate(${rotate}deg)`,
                           transform: `translate3d(${x}px, 0, 0) rotate(${rotate}deg)`,
                           zIndex: data.length - i
                         }}

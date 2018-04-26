@@ -13,14 +13,14 @@ export default class Menu extends Component {
             exact
             to={ routeCodes.DISCOVER }
           >
-            DISCOVER
+            Discover
           </NavLink>
           <NavLink
             activeClassName='Menu-link--active'
             className='Menu-link'
             to={ routeCodes.FAVORITES }
           >
-            FAVORITES
+            Favorites
           </NavLink>
         </div>
       </div>

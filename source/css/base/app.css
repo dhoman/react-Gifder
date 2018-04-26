@@ -94,8 +94,6 @@ button:hover {
 
 .Menu-link {
   display: inline-block;
-  font-family: var(--font-family-serif);;
-  font-style: italic;
   margin-left: 1.5rem;
   line-height: 3rem;
   text-decoration: none;
@@ -123,51 +121,23 @@ button:hover {
   }
 }
 
-.Example {
-  background: #F6F8FA;
-  padding: 2rem;
-  border-radius: 0.4rem;
-}
-
-.Example .Icon {
-  margin-right: 10px;
-}
-
-.BackgroundImgExample {
-  background-image: url(../assets/img/book1.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 16rem;
-  max-width: 25rem;
-}
-
-.ImgExample {
-  max-width: 25rem;
-}
-
 hr {
   border: 0;
   border-top: 1px solid var(--grey-border);
   margin: 2rem 0;
 }
 
-.People-list {
-  @media (--md) {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.gif-list{
+  display: 'flex'; 
+  height: 660px;
+  width: 440px;
 }
 
-.People-person {
-  border-bottom: 1px solid var(--grey-border);
-  padding-bottom: 2rem;
-
-  @media (--md) {
-    flex-basis: 50%;
-    flex-shrink: 0;
-  }
+.favorites{
+  display: 'flex';
+  flex-direction: 'column';
 }
+
 .icon{
   height: '50px';
   width: '50px';

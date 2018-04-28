@@ -10,7 +10,6 @@ import XSvg from 'svg/x.svg';
 export default class Favorites extends Component {
   static propTypes = {
     favorites: PropTypes.arrayOf(PropTypes.object),
-    // from react-redux connect
     dispatch: PropTypes.func,
   }
 
@@ -35,7 +34,7 @@ export default class Favorites extends Component {
     return favorites.map(gif => {
       return (
         <div key={ gif.id }>
-          <img alt={ gif.title } src={ gif.images.original.webp } />
+          <img alt={ gif.title } src={ gif.images.original.url } />
           <XSvg style={ this.iconStyle } onClick={ () => { this.dismissFavoriteClick(gif); } } />
         </div>
       );

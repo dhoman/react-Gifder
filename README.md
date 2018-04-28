@@ -6,7 +6,7 @@ https://github.com/workco/marvin
 
 ## Demo Site
 
-https://react-gifder-demo.s3.us-east-1.amazonaws.com/
+http://react-gifder-demo.s3-website-us-east-1.amazonaws.com/
 
 
 ## Setup

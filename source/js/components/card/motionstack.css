@@ -1,7 +1,7 @@
 .motion-card-stack {
   display: grid;
-  grid-template-columns: 400px;
-  grid-template-rows: 600px;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
   align-items: center;
   justify-content: center;
 }
@@ -9,6 +9,7 @@
 .motion-card-item {
   grid-column: 1/2;
   grid-row: 1/2;
+  height: 100%;
+  width: 100%;
   will-change: transform;
-  background-color: white;
 }

@@ -21,10 +21,12 @@ export default class CardItem extends Component {
     'borderRadius': '10px',
     'padding': '10px',
     'margin': '10px',
-    'width': '400px',
-    'minWidth': '400px',
-    'height': '600px',
-    'minHeight': '600px',
+    'width': '80%',
+    'maxWidth': '400px',
+    'height': '100%',
+    'maxHeight': '600px',
+    'minHeight': '400px',
+    'backgroundColor': 'white',
     'display': 'flex',
     'justifyContent': 'space-between',
     'flexDirection': 'column',
@@ -41,7 +43,7 @@ export default class CardItem extends Component {
         <img
           alt={ gif.title }
           draggable={ false }
-          src={ gif.images.original.webp }
+          src={ gif.images.original.url }
         />
         <div>
           <XSvg onClick={ () => { dismiss(gif); } } style={ this.iconStyle } />

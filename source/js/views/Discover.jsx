@@ -75,6 +75,7 @@ export default class Discover extends Component {
     return (<MotionStack
       data={ gifs }
       onSwipeEnd={ this.swiped }
+      threshold= { 100 }
       render={ (props) => {
           return (
             <CardItem
@@ -101,9 +102,7 @@ export default class Discover extends Component {
         <h1>Gifs</h1>
         { loading && <div>Loading gifs...</div> }
         { error && error.toString() }
-        <div className='gif-list'>
-          { gifs && this.renderGifs() }
-        </div>
+        { gifs && this.renderGifs() }
       </div>
     );
   }

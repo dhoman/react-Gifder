@@ -21,7 +21,7 @@ export default class CardItem extends Component {
     'borderRadius': '10px',
     'padding': '10px',
     'margin': '10px',
-    'width': '80%',
+    'width': '90%',
     'maxWidth': '400px',
     'height': '100%',
     'maxHeight': '600px',

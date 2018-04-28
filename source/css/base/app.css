@@ -127,12 +127,6 @@ hr {
   margin: 2rem 0;
 }
 
-.gif-list{
-  display: 'flex'; 
-  height: 500px;
-  width: 360px;
-}
-
 .favorites{
   display: 'flex';
   flex-direction: 'column';

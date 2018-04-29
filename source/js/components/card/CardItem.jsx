@@ -13,8 +13,8 @@ export default class CardItem extends Component {
   iconStyle = {
     'height': '50px',
     'width': '50px',
-    'marginLeft': '40px',
-    'marginRight': '40px',
+    'marginLeft': '25px',
+    'marginRight': '25px',
   }
   cardStyle = {
     'border': 'solid',
@@ -25,7 +25,7 @@ export default class CardItem extends Component {
     'maxWidth': '400px',
     'height': '100%',
     'maxHeight': '600px',
-    'minHeight': '400px',
+    'minHeight': '340px',
     'backgroundColor': 'white',
     'display': 'flex',
     'justifyContent': 'space-between',
